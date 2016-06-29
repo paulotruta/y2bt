@@ -1,0 +1,63 @@
+<template name="add">
+
+  <div class="center">
+    {{#unless loadingMusic}}
+
+      {{#unless addingMusic}}
+        <h4>Add Song</h4>
+        <div class="row hide-on-small-only" style="margin-top: 25px; margin-right: 20px; margin-left: 20px; margin-bottom: 25px;">
+          <div class="col s12 m4">
+            <div class="center promo">
+              <i class="large material-icons">youtube_searched_for</i>
+              <p class="promo-caption">Paste youtube link</p>
+              <p class="light center">Soon will soon be able to search directly from here, or upload your music!</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="center promo">
+              <i class="large material-icons">get_app</i>
+              <p class="promo-caption">The magic happens</p>
+              <p class="light center">The music will be analised, downloaded, converted and played immediatelly.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="center promo">
+              <i class="large material-icons">group</i>
+              <p class="promo-caption">M'a Niggas ;)</p>
+              <p class="light center">The master playlist feature will allow us to share the same library, in realtime.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row hide-on-med-and-up" style="margin-top: 25px; margin-right: 20px; margin-left: 20px; margin-bottom: 15px;">
+          <div class="col s12">
+            <div class="center promo">
+              <i class="large material-icons">youtube_searched_for</i>
+              <p class="promo-caption">Paste the youtube link and enjoy!</p>
+              <p class="light center">Soon will soon be able to search directly from here, or upload your music!</p>
+            </div>
+          </div>
+        </div>
+
+        <input type="text" id="youtubeurl" name="youtubeurl" style="width: 50%;">
+        <div class="btn applink-getMusic" id="applink-getMusic">
+          <i class="medium material-icons">play_arrow</i>Play
+        </div>
+        {{else}}
+        <h5>{{musicTitle}}</h5>
+        <p>This song will be added to the collection. Do you confirm?</p>
+        <div class="btn applink-addMusic" id="applink-addMusic">
+          <i class="medium material-icons">playlist_add</i>Yes
+        </div>
+        <div class="btn applink-cancelAdd" id="applink-cancelAdd">
+          <i class="medium material-icons">cancel</i>Cancel
+        </div>
+      {{/unless}}
+    {{else}}
+      <h4>Please wait...</h4>
+      {{>wait}}
+    {{/unless}}
+  </div>
+</template>
