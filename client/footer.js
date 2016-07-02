@@ -32,13 +32,9 @@ Template.footer.events({
 	'click .applink-stopMusic': function(){
 
 		Session.set('isPlaying', false);
-		Session.set('musicUrl', '');
-		Session.set('playerThumbnail', null);
-		Session.set('playerTitle', '');
 		var player = document.getElementsByTagName("audio")[0];
-		player.removeAttribute("src");
-		player.load();
-		Sessio.set('hidePlayer', true);
+		player.pause();
+		player.currentTime = 0;
 
 	},
 	'click .applink-skipMusic': function(){
@@ -50,5 +46,9 @@ Template.footer.events({
 
 Template.footer.rendered = function () {
 	
+	$("#player").bind('ended', function(){
+    	// done playing
+    	alert("Player stopped");
+	});
 };
 
