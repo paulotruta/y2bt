@@ -46,7 +46,7 @@ Template.footer.events({
 
 Template.footer.rendered = function () {
 	
-	$("#player").bind('ended', function(){
+	$("#musicPlayer").bind('ended', function(){
     	// done playing
     	alert("Player stopped");
 	});
