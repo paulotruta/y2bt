@@ -115,7 +115,7 @@ Template.add.events({
 			var audioWrapper = document.getElementById("musicPlayerWrapper");
 			audioWrapper.innerHTML = "";
 
-			audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+this.location+'" /></audio>';
+			audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+video_object.location+'" /></audio>';
 
 			audio = document.getElementsByTagName("audio");
 	
