@@ -99,7 +99,7 @@ Template.add.events({
 				"createdAt": new Date(),
 				"plays": 0,
 				"videoId": video_object.video_id,
-				"thumbail": video_object.thumbnail_url,
+				"thumbnail": video_object.thumbnail_url,
 				"avg_rating": video_object.avg_rating,
 				"title": title,
 				"artist": artist,
