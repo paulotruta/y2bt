@@ -1,35 +1,32 @@
 <template name="private">
-  <h4 class="center">Collection</h4>
-  {{#if hasMusic}}
-    <table>
-      <thead>
-        <tr>
-          <th data-field="name">Name</th>
-          <th data-field="artist">Artist (Album)</th>
-          <th data-field="length">Duration</th>
-          <th data-field="actions"></th>
-        </tr>
-      </thead>
+  <div class="container">
+    <h4 class="center">Collection</h4>
+    {{#if hasMusic}}
+      <table class="bordered">
+        <thead>
+          <tr>
+            <th data-field="name">Name</th>
+            <th data-field="artist">Artist (Album)</th>
+            <th data-field="length">Duration</th>
+            <th data-field="actions"></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {{#each musicList}}
-        <tr>
-          <td>{{title}}</td>
-          <td>{{artist}}</td>
-          <td>{{readableTime length}}</td>
-          {{#if isPlaying location}}
-            <td><i class="small material-icons cursor-pointer applink-pauseMusic">pause</i></td>
-          {{else}}
-            <td><i class="small material-icons cursor-pointer applink-playMusic">play_arrow</i></td>
-          {{/if}}
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  {{else}}
-    <div class="center">
-      <i class="large material-icons" style="margin-top:25px;">library_music</i>
-      <p style="margin-top: 25px;">There is no music in the library! Add a song to see it here.</p>
-    </div>
-  {{/if}}
+        <tbody>
+          {{#each musicList}}
+          <tr class="{{#if isPlaying location}}applink-pauseMusic playingBg{{else}}applink-playMusic{{/if}}">
+            <td>{{title}}{{#if isPlaying location}}<i class="tiny material-icons cursor-pointer applink-pauseMusic">pause</i>{{/if}}</td>
+            <td>{{artist}}</td>
+            <td>{{readableTime length}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <div class="center">
+        <i class="large material-icons" style="margin-top:25px;">library_music</i>
+        <p style="margin-top: 25px;">There is no music in the library! Add a song to see it here.</p>
+      </div>
+    {{/if}}
+  </div>
 </template>

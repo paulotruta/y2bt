@@ -100,3 +100,7 @@ table {
 .cursor-pointer{
   cursor: pointer;
 }
+
+.playingBg{
+  background-color: rgba(49, 53, 78, 0.2);
+}
