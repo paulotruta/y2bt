@@ -14,7 +14,7 @@
 
         <tbody>
           {{#each musicList}}
-          <tr class="{{#if isPlaying location}}applink-pauseMusic playingBg{{else}}applink-playMusic{{/if}}">
+          <tr id="{{#if isPlaying location}}playingTrack{{/if}}" class="{{#if isPlaying location}}applink-pauseMusic playingBg{{else}}applink-playMusic{{/if}}" data-src="{{location}}">
             <td>{{title}}{{#if isPlaying location}}<i class="tiny material-icons cursor-pointer applink-pauseMusic">pause</i>{{/if}}</td>
             <td>{{artist}}</td>
             <td>{{readableTime length}}</td>

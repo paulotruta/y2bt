@@ -39,16 +39,38 @@ Template.footer.events({
 	},
 	'click .applink-skipMusic': function(){
 
-		Session.set('isPlaying', true);
+		console.log('Skipping track! Loading next...');
+		var next_track = $('#playingTrack').next().attr('data-src');
+		Session.set('musicUrl', next_track);
+  		$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+		$('#musicPlayer').trigger('play');
+		var next_music_info = Meteor.music.findOne({location: next_track});
+		console.log(next_music_info);
+		Session.set('musicTitle', next_music_info.title);
+		Session.set('playerTitle', next_music_info.artist + " - " + next_music_info.title);
+		Session.set('playerThumbnail', next_music_info.thumbnail);
 
+	},
+	'ended .musicPlayer': function(){
+		console.log('Track ended! Loading next...');
+		var next_track = $('#playingTrack').next().attr('data-src');
+		Session.set('musicUrl', next_track);
+  		$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+		$('#musicPlayer').trigger('play');
+		var next_music_info = Meteor.music.findOne({location: next_track});
+		console.log(next_music_info);
+		Session.set('musicTitle', next_music_info.title);
+		Session.set('playerTitle', next_music_info.artist + " - " + next_music_info.title);
+		Session.set('playerThumbnail', next_music_info.thumbnail);
 	}
 });
 
 Template.footer.rendered = function () {
 	
-	$("#musicPlayer").bind('ended', function(){
-    	// done playing
-    	alert("Player stopped");
-	});
+	audiojs.events.ready(function() {
+    	var as = audiojs.createAll({
+
+    	});
+  	});
 };
 

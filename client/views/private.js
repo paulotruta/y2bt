@@ -42,7 +42,7 @@ Template.private.helpers({
 });
 
 Template.private.events({
-	'click .applink-playMusic': function(){
+	'click .applink-playMusic': function(e){
 
 			Session.set('musicUrl', this.location);
 			Session.set('musicTitle', this.title);
@@ -50,20 +50,38 @@ Template.private.events({
 			Session.set('playerThumbnail', this.thumbnail);
 			Session.set('isPlaying', true);
 			Session.set('hidePlayer', false);
+
+			$('#musicPlayer').trigger('stop');
+
+			$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
 			
-			var audioWrapper = document.getElementById("musicPlayerWrapper");
-			audioWrapper.innerHTML = "";
+			$('#musicPlayer').trigger('play');
 
-			audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+this.location+'" /></audio>';
+			var $this = $(e.target);
 
-			audio = document.getElementsByTagName("audio");
+			console.log($this.parent().next());
+
+			var nextMusicUrl = $this.parent().next().attr('data-src');
+
+			console.log(nextMusicUrl);
+
+			Session.set('nextMusicUrl', nextMusicUrl); 
+
+			// var audioWrapper = document.getElementById("musicPlayerWrapper");
+			// audioWrapper.innerHTML = "";
+
+			//audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+this.location+'" /></audio>';
+
+			// audio = document.getElementsByTagName("audio");
 	
-		    /****************/
-		    audio[0].load();//suspends and restores all audio element
+			// audio[0].stop();
 
-		    //audio[0].play(); changed based on Sprachprofi's comment below
-		    audio.oncanplaythrough = audio[0].play();
-		    /****************/
+		 //    /****************/
+		 //    audio[0].load();//suspends and restores all audio element
+
+		 //    //audio[0].play(); changed based on Sprachprofi's comment below
+		 //    audio.oncanplaythrough = audio[0].play();
+		 //    /****************/
 
 		Session.set('hidePlayer', false);
 		Session.set('isPlaying', true);
