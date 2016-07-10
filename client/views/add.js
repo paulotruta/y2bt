@@ -128,50 +128,10 @@ Template.add.events({
 	},
 	'click .applink-addMusic': function(){
 
-		Session.set('loadingMusic', true);
+		var track_exists = Meteor.music.findOne({location: Session.get('musicUrl_tmp')});
 
-		var videoFileName = Session.get('videoLocation');
-		var musicFileName = Session.get('musicLocation');
-
-		var artist = $('#newMusicArtist').val();
-		var title = $('#newMusicTitle').val();
-
-		Meteor.call('convertVideo', videoFileName, musicFileName, artist, title, function(err, result){
-
-			
-
-			Session.set('musicUrl', Session.get('musicUrl_tmp'));
-			Session.set('musicTitle', Session.get('musicTitle_tmp'));
-			Session.set('playerTitle', Session.get('musicTitle_tmp'));
-			Session.set('musicThumbnail', Session.get('musicThumbnail_tmp'));
-			Session.set('playerThumbnail', Session.get('musicThumbnail_tmp'));
-			Session.set('addingMusic', false);
-			Session.set('loadingMusic', false);
-
-			console.log("Video Converted and saved.");
-
-			Session.set('isPlaying', true);
-			Session.set('hidePlayer', false);
-
-			var video_object = Session.get('videoObject_tmp');
-
-			var music_info = {
-				"userId": Meteor.userId(),
-				"createdAt": new Date(),
-				"plays": 0,
-				"videoId": video_object.video_id,
-				"thumbnail": video_object.thumbnail_url,
-				"avg_rating": video_object.avg_rating,
-				"title": title,
-				"artist": artist,
-				"length": video_object.length_seconds,
-				"location": Session.get('musicUrl_tmp')
-			};
-
-			//console.log(music_info);
-
-			Meteor.call('insertMusic', music_info);
-			//Session.set('musicUrl', musicFileName);
+		if(track_exists){
+			// Music already exists in the library!
 
 			$('#musicPlayer').trigger('stop');
 
@@ -179,7 +139,73 @@ Template.add.events({
 			
 			$('#musicPlayer').trigger('play');
 
-		});
+			Session.set('musicUrl', Session.get('musicUrl_tmp'));
+			Session.set('musicTitle', track_exists.artist + " - " + track_exists.title);
+			Session.set('playerTitle', track_exists.artist + " - " + track_exists.title);
+			Session.set('musicThumbnail', track_exists.thumbnail);
+			Session.set('playerThumbnail', track_exists.thumbnail);
+
+			Session.set('isPlaying', true);
+			Session.set('hidePlayer', false);
+
+			Router.go('/list');
+		}
+		else{
+			Session.set('loadingMusic', true);
+
+			var videoFileName = Session.get('videoLocation');
+			var musicFileName = Session.get('musicLocation');
+
+			var artist = $('#newMusicArtist').val();
+			var title = $('#newMusicTitle').val();
+
+			Meteor.call('convertVideo', videoFileName, musicFileName, artist, title, function(err, result){
+
+				
+
+				Session.set('musicUrl', Session.get('musicUrl_tmp'));
+				Session.set('musicTitle', Session.get('musicTitle_tmp'));
+				Session.set('playerTitle', Session.get('musicTitle_tmp'));
+				Session.set('musicThumbnail', Session.get('musicThumbnail_tmp'));
+				Session.set('playerThumbnail', Session.get('musicThumbnail_tmp'));
+				Session.set('addingMusic', false);
+				Session.set('loadingMusic', false);
+
+				console.log("Video Converted and saved.");
+
+				Session.set('isPlaying', true);
+				Session.set('hidePlayer', false);
+
+				var video_object = Session.get('videoObject_tmp');
+
+				var music_info = {
+					"userId": Meteor.userId(),
+					"createdAt": new Date(),
+					"plays": 0,
+					"videoId": video_object.video_id,
+					"thumbnail": video_object.thumbnail_url,
+					"avg_rating": video_object.avg_rating,
+					"title": title,
+					"artist": artist,
+					"length": video_object.length_seconds,
+					"location": Session.get('musicUrl_tmp')
+				};
+
+				//console.log(music_info);
+
+				Meteor.call('insertMusic', music_info);
+				//Session.set('musicUrl', musicFileName);
+
+				$('#musicPlayer').trigger('stop');
+
+				$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+				
+				$('#musicPlayer').trigger('play');
+
+			});
+		}
+
+		
 
 	},
 	'click .applink-cancelAdd': function(){
