@@ -37,8 +37,8 @@ Template.add.helpers({
         	// Make sure it's a global variable.
         	player = new YT.Player("youtubePlayer", {
 
-            	height: "400", 
-            	width: "600", 
+            	height: "134", 
+            	width: "200", 
 
             	// videoId is the "v" in URL (ex: http://www.youtube.com/watch?v=LdH1hSWGFGU, videoId = "LdH1hSWGFGU")
             	videoId: Session.get('videoObject_tmp').video_id, 
@@ -47,6 +47,9 @@ Template.add.helpers({
             	events: {
 
                 	onReady: function (event) {
+                		// Stop the player if anything was playing at the time...
+                		$('#musicPlayer').trigger('pause');
+                		Session.set('isPlaying', false);
                     	// Play video when player ready.
                     	event.target.playVideo();
                 	}
@@ -150,37 +153,7 @@ Template.add.events({
 			Session.set('isPlaying', true);
 			Session.set('hidePlayer', false);
 
-			var player = document.getElementsByTagName("audio")[0];
-
 			var video_object = Session.get('videoObject_tmp');
-			
-			// var artistFilled = false;
-
-			// var title_split = video_object.title.split('-');
-			// console.log(title_split);
-
-			// var index, len;
-			// for (index = 0, len = title_split.length; index < len; ++index) {
-    			
-   			//  console.log(title_split[index]);
-   			//  element = title_split[index];
-			// 	element = element.trim();
-			// 	console.log(element);
-
-			// 	if(!artistFilled){
-
-			// 		if(isNaN(element)) {
-						
-			// 			artist = element;
-			// 			artistFilled = true;
-
-			// 		}
-			// 	}
-			// 	else{
-			// 		title += " ".concat(element);
-			// 		console.log(title);
-			// 	}
-			// }
 
 			var music_info = {
 				"userId": Meteor.userId(),
@@ -200,19 +173,11 @@ Template.add.events({
 			Meteor.call('insertMusic', music_info);
 			//Session.set('musicUrl', musicFileName);
 
-			var audioWrapper = document.getElementById("musicPlayerWrapper");
-			audioWrapper.innerHTML = "";
+			$('#musicPlayer').trigger('stop');
 
-			audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+video_object.location+'" /></audio>';
-
-			audio = document.getElementsByTagName("audio");
-	
-		    /****************/
-		    audio[0].load();//suspends and restores all audio element
-
-		    //audio[0].play(); changed based on Sprachprofi's comment below
-		    audio.oncanplaythrough = audio[0].play();
-		    /****************/
+			$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+			
+			$('#musicPlayer').trigger('play');
 
 		});
 

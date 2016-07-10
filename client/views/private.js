@@ -44,54 +44,28 @@ Template.private.helpers({
 Template.private.events({
 	'click .applink-playMusic': function(e){
 
-			Session.set('musicUrl', this.location);
-			Session.set('musicTitle', this.title);
-			Session.set('playerTitle', this.artist + " - " + this.title);
-			Session.set('playerThumbnail', this.thumbnail);
-			Session.set('isPlaying', true);
-			Session.set('hidePlayer', false);
+		Session.set('musicUrl', this.location);
+		Session.set('musicTitle', this.title);
+		Session.set('playerTitle', this.artist + " - " + this.title);
+		Session.set('playerThumbnail', this.thumbnail);
+		Session.set('isPlaying', true);
+		Session.set('hidePlayer', false);
 
-			$('#musicPlayer').trigger('stop');
+		$('#musicPlayer').trigger('stop');
 
-			$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
-			
-			$('#musicPlayer').trigger('play');
-
-			var $this = $(e.target);
-
-			console.log($this.parent().next());
-
-			var nextMusicUrl = $this.parent().next().attr('data-src');
-
-			console.log(nextMusicUrl);
-
-			Session.set('nextMusicUrl', nextMusicUrl); 
-
-			// var audioWrapper = document.getElementById("musicPlayerWrapper");
-			// audioWrapper.innerHTML = "";
-
-			//audioWrapper.innerHTML = '<audio autoplay="autoplay" class="musicPlayer"><source src="'+this.location+'" /></audio>';
-
-			// audio = document.getElementsByTagName("audio");
-	
-			// audio[0].stop();
-
-		 //    /****************/
-		 //    audio[0].load();//suspends and restores all audio element
-
-		 //    //audio[0].play(); changed based on Sprachprofi's comment below
-		 //    audio.oncanplaythrough = audio[0].play();
-		 //    /****************/
+		$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+		
+		$('#musicPlayer').trigger('play');
 
 		Session.set('hidePlayer', false);
 		Session.set('isPlaying', true);
 
 	},
 	'click .applink-pauseMusic': function(){
-			Session.set('isPlaying', false);
-			//Session.set('hidePlayer', false);
-			var player = document.getElementsByTagName("audio")[0];
-			player.pause();
+		Session.set('isPlaying', false);
+		//Session.set('hidePlayer', false);
+		var player = document.getElementsByTagName("audio")[0];
+		player.pause();
 	}
 });
 
