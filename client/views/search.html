@@ -1,0 +1,15 @@
+<template name="search">
+  <div class="container">
+    <div class="text-center">
+      <div class="search-wrapper card">
+        <input type="text" id="searchBar" style="width: 86%; border-style: none; margin-top: 16px; padding-left: 10px;"><i class="material-icons applink-searchMusic">search</i>
+      </div>
+      <ul class="collection with-header" style="margin-top: 15px;">
+        <li class="collection-header"><h6><b>Results for {{searchTerm}}</b></h6></li>
+        {{#each searchResults}}
+          <li class="collection-item applink-addResult">{{snippet.title}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</template>

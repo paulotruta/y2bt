@@ -220,5 +220,76 @@ Template.add.rendered = function () {
 	Session.set('musicTitle', null);
 	Session.set('loadingMusic', false);
 	Session.set('addingMusic', false);
+
+	if(Session.get('fromSearch') == true){
+
+		console.log("Getting video from search.");
+
+		// We are coming from a chosen search result, so we must show the preview to the user imediatelly.
+
+		Session.set('loadingMusic', true);
+		Session.set('addingMusic', true);
+		Session.set('fromSearch', false);
+
+		var videoUrl = Session.get('fromSearchUrl');
+
+		console.log('Video Url: ' + videoUrl)
+
+		Meteor.call('getVideoInfo', videoUrl, function(err, result) {
+
+			var videoFileName = "/home/bitnami/htdocs/video/".concat(result.video_id).concat(".mp4");
+			var musicFileName = "/home/bitnami/htdocs/music/".concat(result.video_id).concat(".mp3");
+			
+			Session.set('musicTitle_tmp', result.title);
+  			Session.set('musicUrl_tmp', "http://bitnami-meanstack-2dab.cloudapp.net".concat("/music/".concat(result.video_id).concat(".mp3")));
+  			Session.set('musicLocation', musicFileName);
+  			Session.set('videoLocation', videoFileName);
+  			Session.set('musicThumbnail_tmp', result.thumbnail_url);
+  			Session.set('videoObject_tmp', result);
+
+  			var title = "";
+			var artist = "";
+			var artistFilled = false;
+
+			var title_split = result.title.split('-');
+			
+			console.log(title_split);
+
+			var index, len;
+			for (index = 0, len = title_split.length; index < len; ++index) {
+    			
+    			//console.log(title_split[index]);
+    			element = title_split[index];
+				element = element.trim();
+				console.log(element);
+
+				if(!artistFilled){
+
+					if(isNaN(element)) {
+						
+						artist = element;
+						artistFilled = true;
+
+					}
+				}
+				else{
+					title += " ".concat(element);
+					console.log(title);
+				}
+			}
+
+			Session.set('musicTitle_artist_tmp', artist);
+			Session.set('musicTitle_title_tmp', title);
+
+  			console.log(result);
+  			console.log(err);
+
+  			//console.log (result.thumbnail_url);
+  			Session.set('loadingMusic', false);
+
+		});
+
+	} 
+
 };
 

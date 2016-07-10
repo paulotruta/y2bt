@@ -10,6 +10,13 @@ var ffmpeg = Meteor.npmRequire('fluent-ffmpeg');
 // load Node.js filesystem module
 var fs = Meteor.npmRequire('fs');
 
+YoutubeApi.authenticate({
+    type: 'key',
+    key: 'AIzaSyAbC62ic8VUaZXpR0fujRDy1CqbWY4YfwI'
+});
+
+console.log("Authenticated with youtube for searching!");
+
 Meteor.methods({
   // Get info from Youtube video
 	'getVideoInfo':function(videoUrl) {
@@ -60,5 +67,30 @@ Meteor.methods({
 		console.log(music_details);
 		return true;
 
-	}
+	},
+	'searchMusic': function(search) {
+
+		this.unblock();
+		var future = new Future();
+
+		console.log("Started a search!");
+
+        YoutubeApi.search.list({
+            part: "id, snippet",
+            type: "video",
+            maxResults: 5,
+            q: search,
+        }, function (err, data) {
+        	if(err){
+        		console.log(err);
+        	}
+        	else{
+        		console.log('Did a search! Results:');
+        		console.log(data);
+        		future.return(data);
+        	}
+        });
+
+        return future.wait()
+    }
 });
