@@ -30,7 +30,7 @@ Meteor.methods({
 
 		return future.wait();
 	},
-	'convertVideo':function(videoFileName, musicFileName) {
+	'convertVideo':function(videoFileName, musicFileName, artist, title) {
 
 		this.unblock();
 		var future = new Future();

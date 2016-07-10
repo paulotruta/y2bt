@@ -46,7 +46,24 @@
           <i class="medium material-icons">play_arrow</i>Play
         </div>
         {{else}}
-        <h5>{{musicTitle}}</h5>
+
+        <p style="margin-top: 15px;">Please confirm the artist and title of this track. Feel free to edit the title before adding it to the master list!</p>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="newMusicArtist" type="text" value="{{inputArtist}}" class="validate">
+                <label for="newMusicArtist">Artist</label>
+              </div>
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">queue_music</i>
+                <input id="newMusicTitle" type="text" value="{{inputTitle}}" class="validate">
+                <label for="newMusicTitle">Title</label>
+              </div>
+            </div>
+          </form>
+        </div>
         <p>This song will be added to the collection. Do you confirm?</p>
         <div class="btn applink-addMusic" id="applink-addMusic">
           <i class="medium material-icons">playlist_add</i>Yes
