@@ -67,10 +67,10 @@ Template.footer.events({
 
 Template.footer.rendered = function () {
 	
-	audiojs.events.ready(function() {
-    	var as = audiojs.createAll({
+	// audiojs.events.ready(function() {
+ //    	var as = audiojs.createAll({
 
-    	});
-  	});
+ //    	});
+ //  	});
 };
 

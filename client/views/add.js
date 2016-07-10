@@ -198,8 +198,10 @@ Template.add.events({
 
 				$('#musicPlayer').trigger('stop');
 
-				$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+				//$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
 				
+				$('#musicPlayer').trigger('load', Session.get('musicUrl_tmp'));
+
 				$('#musicPlayer').trigger('play');
 
 				Router.go('/list#playingTrack');

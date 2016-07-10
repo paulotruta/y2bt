@@ -5,7 +5,7 @@
     {{#if hasMusic}}
       <ul class="collection">
         {{#each musicList}}
-          <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item avatar {{#if isPlaying location}}applink-pauseMusic active{{else}}applink-playMusic{{/if}}" data-src="{{location}}">
+          <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item avatar {{#if isPlaying location}}applink-pauseMusicPersonal active{{else}}applink-playMusicPersonal{{/if}}" data-src="{{location}}">
             <img src="{{thumbnail}}" alt="" class="circle">
             <span class="title">{{title}}</span>
             <p>{{{artist}}}<br>

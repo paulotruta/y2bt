@@ -53,7 +53,9 @@ Template.private.events({
 
 		$('#musicPlayer').trigger('stop');
 
-		$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
+		$('#musicPlayer').trigger('load', this.location);
+
+		//$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
 		
 		$('#musicPlayer').trigger('play');
 

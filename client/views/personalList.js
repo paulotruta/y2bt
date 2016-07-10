@@ -8,7 +8,7 @@ Template.personalList.helpers({
 	'musicCount': function(){
 		return Meteor.music.find({"userId": Meteor.userId()}).count();
 	},
-	'musicList': function(){
+	'musicListPersonal': function(){
 		return Meteor.music.find().fetch({"userId": Meteor.userId()});
 	},
 	'readableTime': function(seconds){
@@ -42,7 +42,7 @@ Template.personalList.helpers({
 });
 
 Template.personalList.events({
-	'click .applink-playMusic': function(e){
+	'click .applink-playMusicPersonal': function(e){
 
 		Session.set('musicUrl', this.location);
 		Session.set('musicTitle', this.title);
@@ -53,7 +53,9 @@ Template.personalList.events({
 
 		$('#musicPlayer').trigger('stop');
 
-		$('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
+		$('#musicPlayer').trigger('load', this.location);
+
+		// $('#musicPlayerWrapper').html('<audio src="'+this.location+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
 		
 		$('#musicPlayer').trigger('play');
 
@@ -61,7 +63,7 @@ Template.personalList.events({
 		Session.set('isPlaying', true);
 
 	},
-	'click .applink-pauseMusic': function(){
+	'click .applink-pauseMusicPersonal': function(){
 		Session.set('isPlaying', false);
 		//Session.set('hidePlayer', false);
 		var player = document.getElementsByTagName("audio")[0];
