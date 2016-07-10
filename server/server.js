@@ -78,7 +78,7 @@ Meteor.methods({
         YoutubeApi.search.list({
             part: "id, snippet",
             type: "video",
-            maxResults: 5,
+            maxResults: 20,
             q: search,
         }, function (err, data) {
         	if(err){
