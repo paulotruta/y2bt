@@ -1,15 +1,15 @@
-Template.private.helpers({
+Template.personalList.helpers({
 	'hasMusic': function(){
-		if(Meteor.music.find().count() > 0){
+		if(Meteor.music.find({"userId": Meteor.userId()}).count() > 0){
 			return true;
 		}
 		else return false;
 	},
 	'musicCount': function(){
-		return Meteor.music.find().count();
+		return Meteor.music.find({"userId": Meteor.userId()}).count();
 	},
 	'musicList': function(){
-		return Meteor.music.find().fetch();
+		return Meteor.music.find().fetch({"userId": Meteor.userId()});
 	},
 	'readableTime': function(seconds){
 		var date = new Date(null);
@@ -41,7 +41,7 @@ Template.private.helpers({
 	}
 });
 
-Template.private.events({
+Template.personalList.events({
 	'click .applink-playMusic': function(e){
 
 		Session.set('musicUrl', this.location);
@@ -69,6 +69,6 @@ Template.private.events({
 	}
 });
 
-Template.private.rendered = function () {
+Template.personalList.rendered = function () {
 
 };

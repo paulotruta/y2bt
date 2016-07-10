@@ -1,6 +1,6 @@
-<template name="private">
+<template name="personalList">
   <div class="container">
-    <h4 class="center">Collection</h4>
+    <h4 class="center">Personal List</h4>
 
     {{#if hasMusic}}
       <ul class="collection">
@@ -18,7 +18,7 @@
     {{else}}
       <div class="center">
         <i class="large material-icons" style="margin-top:25px;">library_music</i>
-        <p style="margin-top: 25px;">There is no music in the library! Add a song to see it here.</p>
+        <p style="margin-top: 25px;">You didn't add any music yet! The songs you add to the cloud will be available here.</p>
       </div>
     {{/if}}
   </div>

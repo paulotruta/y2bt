@@ -104,3 +104,12 @@ table {
 .playingBg{
   background-color: rgba(49, 53, 78, 0.2);
 }
+
+.collection .collection-item.active {
+  background-color: #31354e;
+  color: #eafaf9;
+}
+
+.collection .collection-item.avatar .secondary-content{
+  top: 40px;
+}
