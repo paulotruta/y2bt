@@ -11,7 +11,7 @@
             <p>{{{artist}}}<br>
                {{readableTime length}}
             </p>
-            {{#if isPlaying location}}<a href="#!" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="#!" class="secondary-content" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>
+            {{#if isPlaying location}}<a href="#!" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="#!" class="secondary-content" style="right: 60px;"><a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a></a>
           </li>
         {{/each}}
       </ul>
