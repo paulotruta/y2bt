@@ -72,5 +72,5 @@ Template.private.events({
 });
 
 Template.private.rendered = function () {
-
+	$('.tooltipped').tooltip({delay: 50});
 };
