@@ -52,6 +52,12 @@ Template.add.helpers({
                 		Session.set('isPlaying', false);
                     	// Play video when player ready.
                     	event.target.playVideo();
+
+                    // $('#applink-addMusic').click(function(){
+                    // 		// Session.set('current_preview_time', videoTarget.getCurrentTime());
+                    // 		// console.log('Current playing time: ' + videoTarget.getCurrentTime());
+                    // });
+
                 	}
 
             	}
@@ -130,13 +136,20 @@ Template.add.events({
 
 		var track_exists = Meteor.music.findOne({location: Session.get('musicUrl_tmp')});
 
+		var current_preview_time = player.getCurrentTime();
+
 		if(track_exists){
 			// Music already exists in the library!
 
 			$('#musicPlayer').trigger('stop');
 
-			$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
+			//$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
 			
+			$('#musicPlayer').trigger('load', Session.get('musicUrl_tmp'));
+
+			var musicPlayer = document.getElementById("musicPlayer");
+			musicPlayer.currentTime = current_preview_time;
+
 			$('#musicPlayer').trigger('play');
 
 			Session.set('musicUrl', Session.get('musicUrl_tmp'));
@@ -201,6 +214,9 @@ Template.add.events({
 				//$('#musicPlayerWrapper').html('<audio src="'+Session.get('musicUrl_tmp')+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer" controls></audio>');
 				
 				$('#musicPlayer').trigger('load', Session.get('musicUrl_tmp'));
+
+				var musicPlayer = document.getElementById("musicPlayer");
+				musicPlayer.currentTime = current_preview_time;
 
 				$('#musicPlayer').trigger('play');
 
