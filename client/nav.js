@@ -1,3 +1,10 @@
 Template.nav.rendered = function () {
-  $(".button-collapse").sideNav();
+
+	menu_close = false;
+
+	if(is.mobile()) menu_close = true;
+
+  $(".button-collapse").sideNav({
+  	closeOnClick: menu_close
+  });
 };
