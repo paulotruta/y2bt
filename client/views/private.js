@@ -9,7 +9,7 @@ Template.private.helpers({
 		return Meteor.music.find().count();
 	},
 	'musicList': function(){
-		return Meteor.music.find().fetch();
+		return Meteor.music.find({}, {createdAt: -1}).fetch();
 	},
 	'readableTime': function(seconds){
 		var date = new Date(null);

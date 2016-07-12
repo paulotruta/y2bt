@@ -55,7 +55,8 @@ Template.footer.events({
 		console.log('Track ended! Loading next...');
 		var next_track = $('#playingTrack').next().attr('data-src');
 		Session.set('musicUrl', next_track);
-  		$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
+		$('#musicPlayer').trigger('load', next_track);
+  		//$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
 		$('#musicPlayer').trigger('play');
 		var next_music_info = Meteor.music.findOne({location: next_track});
 		console.log(next_music_info);
