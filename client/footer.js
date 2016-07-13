@@ -3,9 +3,7 @@ Template.footer.helpers({
 		return Session.get('hidePlayer');
 	},
 	'music_isPlaying': function(){
-		// return Session.get('isPlaying');
-		var player = document.getElementsByTagName("audio")[0];
-		return player.paused == false;
+		return Session.get('isPlaying');
 	},
 	'music_title': function(){
 		return Session.get('playerTitle');
@@ -52,6 +50,10 @@ Template.footer.events({
 		Session.set('playerTitle', next_music_info.artist + " - " + next_music_info.title);
 		Session.set('playerThumbnail', next_music_info.thumbnail);
 
+	},
+	'playing .musicPlayer' : function(){
+		var player = document.getElementsByTagName("audio")[0];
+		Session.set('isPlaying', player.paused == false);
 	},
 	'ended .musicPlayer': function(){
 		console.log('Track ended! Loading next...');
