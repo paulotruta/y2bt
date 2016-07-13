@@ -177,8 +177,8 @@ Template.add.events({
 				
 
 				Session.set('musicUrl', Session.get('musicUrl_tmp'));
-				Session.set('musicTitle', Session.get('musicTitle_tmp'));
-				Session.set('playerTitle', Session.get('musicTitle_tmp'));
+				Session.set('musicTitle', artist + " - " + title);
+				Session.set('playerTitle', artist + " - " + title);
 				Session.set('musicThumbnail', Session.get('musicThumbnail_tmp'));
 				Session.set('playerThumbnail', Session.get('musicThumbnail_tmp'));
 				Session.set('addingMusic', false);
