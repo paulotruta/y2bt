@@ -6,9 +6,10 @@
       <ul class="collection">
         {{#each musicList}}
           <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item avatar {{#if isPlaying location}}applink-pauseMusic active{{else}}applink-playMusic{{/if}}" data-src="{{location}}">
+            <div style="display:none">{{_id}}</div>
             <img src="{{thumbnail}}" alt="" class="circle">
             <span class="title">{{title}}</span>
-            <p>{{{artist}}}<br>
+            <p><div class="artist">{{{artist}}}</div><br>
                {{readableTime length}}
             </p>
             {{#if isPlaying location}}<a href="!#" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>
