@@ -64,17 +64,14 @@ Template.private.events({
 
 		// Set the next continuous play songs
 
-		var next_tracklist = [];
-
-		var next_tracks = $('#playingTrack').nextAll().each(function(next_tracklist){
-			
-			next_tracklist.push($(this).attr('data-src'));
+		var next_tracks = $('#playingTrack').nextAll().map(function(){
+			var track_location = $(this).attr('data-src');
+			console.log($(this).attr('data-src'));
+			return track_location;
 
 		});
 
-		Session.set('next_tracklist', next_tracklist);
-
-
+		Session.set('next_tracklist', next_tracks.get());
 
 	},
 	'click .applink-pauseMusic': function(){
