@@ -66,10 +66,11 @@ Template.private.events({
 
 		var next_tracks = $('#playingTrack').nextAll().map(function(){
 			var track_location = $(this).attr('data-src');
-			console.log($(this).attr('data-src'));
+			console.log(track_location);
 			return track_location;
-
 		});
+
+		console.log(next_tracks);
 
 		Session.set('next_tracklist', next_tracks.get());
 
