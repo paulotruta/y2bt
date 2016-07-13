@@ -3,7 +3,8 @@ Template.footer.helpers({
 		return Session.get('hidePlayer');
 	},
 	'music_isPlaying': function(){
-		return Session.get('isPlaying');
+		// return Session.get('isPlaying');
+		return $('#musicPlayer').prop("paused") == false;
 	},
 	'music_title': function(){
 		return Session.get('playerTitle');
