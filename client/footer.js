@@ -51,9 +51,9 @@ Template.footer.events({
 		Session.set('playerThumbnail', next_music_info.thumbnail);
 
 	},
-	'playing .musicPlayer' : function(){
+	'pause .musicPlayer' : function(){
 		var player = document.getElementsByTagName("audio")[0];
-		Session.set('isPlaying', player.paused == false);
+		Session.set('isPlaying', player.paused);
 	},
 	'ended .musicPlayer': function(){
 		console.log('Track ended! Loading next...');
