@@ -4,7 +4,8 @@ Template.footer.helpers({
 	},
 	'music_isPlaying': function(){
 		// return Session.get('isPlaying');
-		return $('#musicPlayer').prop("paused") == false;
+		var player = document.getElementsByTagName("audio")[0];
+		return player.paused == false;
 	},
 	'music_title': function(){
 		return Session.get('playerTitle');
