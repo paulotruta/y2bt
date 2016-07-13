@@ -53,7 +53,7 @@ Template.footer.events({
 	},
 	'pause .musicPlayer' : function(){
 		var player = document.getElementsByTagName("audio")[0];
-		Session.set('isPlaying', player.paused);
+		Session.set('isPlaying', !player.paused);
 	},
 	'ended .musicPlayer': function(){
 		console.log('Track ended! Loading next...');
