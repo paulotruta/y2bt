@@ -59,7 +59,8 @@ Template.footer.events({
 		console.log('Track ended! Loading next...');
 		//var next_track = $('#playingTrack').next().attr('data-src');
 		var tracklist = Session.get('next_tracklist');
-		var next_track = Session.set('next_tracklist', tracklist.pop());
+		var next_track = tracklist.pop();
+		Session.set('next_tracklist', tracklist);
 		Session.set('musicUrl', next_track);
 		$('#musicPlayer').trigger('load', next_track);
   		//$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');

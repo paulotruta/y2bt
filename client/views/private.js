@@ -66,7 +66,7 @@ Template.private.events({
 
 		var next_tracks = $('#playingTrack').nextAll().map(function(){
 			var track_location = $(this).attr('data-src');
-			console.log(track_location);
+			//console.log(track_location);
 			return track_location;
 		});
 
