@@ -64,20 +64,15 @@ Template.private.events({
 
 		// Set the next continuous play songs
 
-		Session.set('next_tracklist', []);
+		var next_tracklist = [];
 
 		var next_tracks = $('#playingTrack').nextAll().each(function(next_tracklist){
-			Session.set('next_tracklist', Session.get('next_tracklist').push(
-				// {
-				// 	id: $(this).children('.id').text();
-					//location: $(this).attr('data-src');
-					$(this).attr('data-src');
-					//artist: $(this).children('.artist').text();
-					//title: $(this).children('.title').text();
-					//thumbnail: $(this).children('.circle').attr('src');
-				//}
-			));
+			
+			next_tracklist.push($(this).attr('data-src'));
+
 		});
+
+		Session.set('next_tracklist', next_tracklist);
 
 
 
