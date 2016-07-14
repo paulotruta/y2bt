@@ -72,11 +72,11 @@ Template.private.events({
 			});
 		}
 		else{
-			next_tracks = $('.collection').children().map(function()){
+			next_tracks = $('.collection').children().map(function(){
 				var track_location = $(this).attr('data-src');
 				//console.log(track_location);
 				return track_location;
-			}
+			});
 		}
 		
 		console.log(next_tracks);
