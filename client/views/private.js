@@ -48,7 +48,6 @@ Template.private.events({
 		Session.set('musicTitle', this.title);
 		Session.set('playerTitle', this.artist + " - " + this.title);
 		Session.set('playerThumbnail', this.thumbnail);
-		Session.set('isPlaying', true);
 		Session.set('hidePlayer', false);
 
 		$('#musicPlayer').trigger('stop');
@@ -62,14 +61,24 @@ Template.private.events({
 		Session.set('hidePlayer', false);
 		Session.set('isPlaying', true);
 
+		var next_tracks;
+
 		// Set the next continuous play songs
-
-		var next_tracks = $('#playingTrack').nextAll().map(function(){
-			var track_location = $(this).attr('data-src');
-			//console.log(track_location);
-			return track_location;
-		});
-
+		if(Session.get('isPlaying')){
+			next_tracks = $('#playingTrack').nextAll().map(function(){
+				var track_location = $(this).attr('data-src');
+				//console.log(track_location);
+				return track_location;
+			});
+		}
+		else{
+			next_tracks = $('.collection').children().map(function()){
+				var track_location = $(this).attr('data-src');
+				//console.log(track_location);
+				return track_location;
+			}
+		}
+		
 		console.log(next_tracks);
 
 		Session.set('next_tracklist', next_tracks.get());
