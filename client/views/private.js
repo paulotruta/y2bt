@@ -61,17 +61,13 @@ Template.private.events({
 		Session.set('hidePlayer', false);
 		Session.set('isPlaying', true);
 
-		var next_tracks;
-
 		// Set the next continuous play songs
-		if(Session.get('isPlaying')){
-			next_tracks = $('#playingTrack').nextAll().map(function(){
-				var track_location = $(this).attr('data-src');
-				//console.log(track_location);
-				return track_location;
-			});
-		}
-		else{
+		var next_tracks = $('#playingTrack').nextAll().map(function(){
+			var track_location = $(this).attr('data-src');
+			//console.log(track_location);
+			return track_location;
+		});
+		if(next_tracks.length == 0){
 			next_tracks = $('.collection').children().map(function(){
 				var track_location = $(this).attr('data-src');
 				//console.log(track_location);
