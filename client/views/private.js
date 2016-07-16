@@ -62,18 +62,19 @@ Template.private.events({
 		Session.set('isPlaying', true);
 
 		// Set the next continuous play songs
-		var next_tracks = $('#playingTrack').nextAll().map(function(){
+		var selector = '#' + this._id;
+		var next_tracks = $(selector).nextAll().map(function(){
 			var track_location = $(this).attr('data-src');
 			//console.log(track_location);
 			return track_location;
 		});
-		if(next_tracks.length == 0){
-			next_tracks = $('.collection').children().map(function(){
-				var track_location = $(this).attr('data-src');
-				//console.log(track_location);
-				return track_location;
-			});
-		}
+		// if(next_tracks.length == 0){
+		// 	next_tracks = $('.collection').children().map(function(){
+		// 		var track_location = $(this).attr('data-src');
+		// 		//console.log(track_location);
+		// 		return track_location;
+		// 	});
+		// }
 		
 		console.log(next_tracks);
 
