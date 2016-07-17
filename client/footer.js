@@ -40,12 +40,18 @@ Template.footer.events({
 	'click .applink-skipMusic': function(){
 
 		console.log('Skipping track! Loading next...');
-		var next_track = $('#playingTrack').next().attr('data-src');
+		//var next_track = $('#playingTrack').next().attr('data-src');
+		var tracklist = Session.get('next_tracklist')
+		var next_track = tracklist.shift();
 		Session.set('musicUrl', next_track);
-  		$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
+		Session.set('isPlaying', true);
+		Session.set('next_tracklist', tracklist);
+  		//$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
+		$('#musicPlayer').trigger('load', next_track);
 		$('#musicPlayer').trigger('play');
 		var next_music_info = Meteor.music.findOne({location: next_track});
 		console.log(next_music_info);
+		Meteor.call('incrementPlayCount', next_music_info._id);
 		Session.set('musicTitle', next_music_info.title);
 		Session.set('playerTitle', next_music_info.artist + " - " + next_music_info.title);
 		Session.set('playerThumbnail', next_music_info.thumbnail);

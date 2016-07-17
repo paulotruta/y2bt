@@ -194,7 +194,7 @@ Template.add.events({
 				var music_info = {
 					"userId": Meteor.userId(),
 					"createdAt": new Date(),
-					"plays": 0,
+					"plays": 1,
 					"videoId": video_object.video_id,
 					"thumbnail": video_object.thumbnail_url,
 					"avg_rating": video_object.avg_rating,

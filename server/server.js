@@ -75,22 +75,26 @@ Meteor.methods({
 
 		console.log("Started a search!");
 
-        YoutubeApi.search.list({
-            part: "id, snippet",
-            type: "video",
-            maxResults: 20,
-            q: search,
-        }, function (err, data) {
-        	if(err){
-        		console.log(err);
-        	}
-        	else{
-        		console.log('Did a search! Results:');
-        		console.log(data);
-        		future.return(data);
-        	}
-        });
+    YoutubeApi.search.list({
+        part: "id, snippet",
+        type: "video",
+        maxResults: 20,
+        q: search,
+    }, function (err, data) {
+    	if(err){
+    		console.log(err);
+    	}
+    	else{
+    		console.log('Did a search! Results:');
+    		console.log(data);
+    		future.return(data);
+    	}
+    });
 
-        return future.wait()
-    }
+    return future.wait()
+  },
+  'incrementPlayCount': function(musicId) {
+    Meteor.music.update({_id: musicId}, { $inc: {plays: 1}});
+    return true;
+  }
 });

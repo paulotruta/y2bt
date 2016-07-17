@@ -1,16 +1,4 @@
-Template.private.helpers({
-	'hasMusic': function(){
-		if(Meteor.music.find().count() > 0){
-			return true;
-		}
-		else return false;
-	},
-	'musicCount': function(){
-		return Meteor.music.find().count();
-	},
-	'musicList': function(){
-		return Meteor.music.find({}, {sort: {createdAt: -1}}).fetch();
-	},
+Template.playlist.helpers({
 	'readableTime': function(seconds){
 		var date = new Date(null);
 		date.setSeconds(seconds);
@@ -41,7 +29,7 @@ Template.private.helpers({
 	}
 });
 
-Template.private.events({
+Template.playlist.events({
 	'click .applink-playMusic': function(e){
 
 		Session.set('musicUrl', this.location);
@@ -78,7 +66,7 @@ Template.private.events({
 		
 		//console.log(next_tracks);
 
-		//Increment play count
+		// Increment play count
 		Meteor.call('incrementPlayCount', this._id);
 
 		Session.set('next_tracklist', next_tracks.get());
@@ -92,6 +80,6 @@ Template.private.events({
 	}
 });
 
-Template.private.rendered = function () {
+Template.playlist.rendered = function () {
 	$('.tooltipped').tooltip({delay: 50});
 };
