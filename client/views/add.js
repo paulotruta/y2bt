@@ -161,7 +161,7 @@ Template.add.events({
 			Session.set('isPlaying', true);
 			Session.set('hidePlayer', false);
 
-			Router.go('/list#playingTrack');
+			Router.go('/masterList');
 		}
 		else{
 			Session.set('loadingMusic', true);
@@ -220,7 +220,7 @@ Template.add.events({
 
 				$('#musicPlayer').trigger('play');
 
-				Router.go('/list#playingTrack');
+				Router.go('/personalList');
 
 			});
 
