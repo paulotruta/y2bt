@@ -17,14 +17,16 @@
     {{#if hasMusic}}
       <ul class="collection">
         {{#each musicList}}
-          <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item {{_id}} avatar {{#if isPlaying location}}applink-pauseMusic active{{else}}applink-playMusic{{/if}}" data-src="{{location}}">
-            <div style="display:none" class="id">{{_id}}</div>
-            <img src="{{thumbnail}}" alt="" class="circle">
-            <span class="title">{{title}}</span>
-            <p><div class="artist">{{{artist}}}</div>
-               {{readableTime length}}
-            </p>
-            {{#if isPlaying location}}<a href="!#" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>
+          <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item {{_id}} avatar {{#if isPlaying location}} active{{/if}}" data-src="{{location}}">
+            <div class="{{#if isPlaying location}}applink-pauseMusic{{else}}applink-playMusic{{/if}}" style="margin-right: 90px;">
+              <div style="display:none" class="id">{{_id}}</div>
+              <img src="{{thumbnail}}" alt="" class="circle">
+              <span class="title">{{title}}</span>
+              <p><div class="artist">{{{artist}}}</div>
+                 {{readableTime length}}
+              </p>
+            </div>
+            {{#if isPlaying location}}<div class="secondary-content"><i class="material-icons applink-pauseMusic cursor-pointer" style="color: white;">pause</i></div><a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>{{else}}<div class="secondary-content"><i class="material-icons applink-queueMusic cursor-pointer" style="color: #31354E;">queue</i></div>{{/if}}
           </li>
         {{/each}}
       </ul>
