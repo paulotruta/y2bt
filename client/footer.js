@@ -40,9 +40,23 @@ Template.footer.events({
 	'click .applink-skipMusic': function(){
 
 		console.log('Skipping track! Loading next...');
-		//var next_track = $('#playingTrack').next().attr('data-src');
-		var tracklist = Session.get('next_tracklist')
-		var next_track = tracklist.shift();
+		var tracklist = Session.get('next_tracklist');
+		var next_track = "";
+
+		// Check if there is any track in queue...
+		if(queueCollection.find().count() > 0){
+			// Load the next track...
+			var next_track_obj = queueCollection.find().fetch()[0];
+			next_track = next_track_obj.location;
+			// Remove it from queue;
+			queueCollection.remove(next_track_obj._id);
+		}
+		else{
+			// An example where the asynchronous way of Meteor working brings problems... 
+			//var tracklist = Session.get('next_tracklist');
+			next_track = tracklist.shift();
+		}
+		
 		Session.set('musicUrl', next_track);
 		Session.set('isPlaying', true);
 		Session.set('next_tracklist', tracklist);
@@ -57,15 +71,33 @@ Template.footer.events({
 		Session.set('playerThumbnail', next_music_info.thumbnail);
 
 	},
+	'click .applink-openQueue': function(){
+
+  		$('#queueList').openModal();
+          
+	},
 	'pause .musicPlayer' : function(){
 		var player = document.getElementsByTagName("audio")[0];
 		Session.set('isPlaying', !player.paused);
 	},
 	'ended .musicPlayer': function(){
+
 		console.log('Track ended! Loading next...');
-		//var next_track = $('#playingTrack').next().attr('data-src');
 		var tracklist = Session.get('next_tracklist');
-		var next_track = tracklist.shift();
+		var next_track = "";
+
+		// Check if there is any track in queue...
+		if(queueCollection.find().count() > 0){
+			// Load the next track...
+			var next_track_obj = queueCollection.find().fetch()[0];
+			next_track = next_track_obj.location;
+			// Remove it from queue;
+			queueCollection.remove(next_track_obj._id);
+		}
+		else{
+			next_track = tracklist.shift();
+		}
+		
 		Session.set('isPlaying', true);
 		Session.set('musicUrl', next_track);
 		Session.set('next_tracklist', tracklist);

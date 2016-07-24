@@ -1,3 +1,8 @@
+function isUrl(s) {
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
+}
+
 Template.add.helpers({
 	'musicTitle': function(separated = false){
 			
@@ -77,59 +82,80 @@ Template.add.events({
 
 		var videoUrl = $('#youtubeurl').val();
 
-		Meteor.call('getVideoInfo', videoUrl, function(err, result) {
+		if(isUrl(videoUrl)){
+			Meteor.call('getVideoInfo', videoUrl, function(err, result) {
 
-			var videoFileName = "/home/bitnami/htdocs/video/".concat(result.video_id).concat(".mp4");
-			var musicFileName = "/home/bitnami/htdocs/music/".concat(result.video_id).concat(".mp3");
-			
-			Session.set('musicTitle_tmp', result.title);
-  			Session.set('musicUrl_tmp', "http://bitnami-meanstack-2dab.cloudapp.net".concat("/music/".concat(result.video_id).concat(".mp3")));
-  			Session.set('musicLocation', musicFileName);
-  			Session.set('videoLocation', videoFileName);
-  			Session.set('musicThumbnail_tmp', result.thumbnail_url);
-  			Session.set('videoObject_tmp', result);
+				var videoFileName = "/home/bitnami/htdocs/video/".concat(result.video_id).concat(".mp4");
+				var musicFileName = "/home/bitnami/htdocs/music/".concat(result.video_id).concat(".mp3");
+				
+				Session.set('musicTitle_tmp', result.title);
+	  			Session.set('musicUrl_tmp', "http://bitnami-meanstack-2dab.cloudapp.net".concat("/music/".concat(result.video_id).concat(".mp3")));
+	  			Session.set('musicLocation', musicFileName);
+	  			Session.set('videoLocation', videoFileName);
+	  			Session.set('musicThumbnail_tmp', result.thumbnail_url);
+	  			Session.set('videoObject_tmp', result);
 
-  			var title = "";
-			var artist = "";
-			var artistFilled = false;
+	  			var title = "";
+				var artist = "";
+				var artistFilled = false;
 
-			var title_split = result.title.split('-');
-			
-			console.log(title_split);
+				var title_split = result.title.split('-');
+				
+				console.log(title_split);
 
-			var index, len;
-			for (index = 0, len = title_split.length; index < len; ++index) {
-    			
-    			//console.log(title_split[index]);
-    			element = title_split[index];
-				element = element.trim();
-				console.log(element);
+				var index, len;
+				for (index = 0, len = title_split.length; index < len; ++index) {
+	    			
+	    			//console.log(title_split[index]);
+	    			element = title_split[index];
+					element = element.trim();
+					console.log(element);
 
-				if(!artistFilled){
+					if(!artistFilled){
 
-					if(isNaN(element)) {
-						
-						artist = element;
-						artistFilled = true;
+						if(isNaN(element)) {
+							
+							artist = element;
+							artistFilled = true;
 
+						}
+					}
+					else{
+						title += " ".concat(element);
+						console.log(title);
 					}
 				}
-				else{
-					title += " ".concat(element);
-					console.log(title);
-				}
-			}
 
-			Session.set('musicTitle_artist_tmp', artist);
-			Session.set('musicTitle_title_tmp', title);
+				Session.set('musicTitle_artist_tmp', artist);
+				Session.set('musicTitle_title_tmp', title);
 
-  			console.log(result);
-  			console.log(err);
+	  			console.log(result);
+	  			console.log(err);
 
-  			//console.log (result.thumbnail_url);
-  			Session.set('loadingMusic', false);
+	  			//console.log (result.thumbnail_url);
+	  			Session.set('loadingMusic', false);
 
-		});
+			});
+		}
+		else{
+			// is a search term...
+
+			var searchTerm = videoUrl;
+
+			Session.set('searchTerm', searchTerm);
+
+			Meteor.call('searchMusic', searchTerm, function(err, result){
+
+				console.log('Searching youtube for ' + searchTerm);
+				Session.set('searchResults', result.items);
+				console.log(result);
+
+			});
+
+			Router.go('/search');
+		}
+
+		
 
 	},
 	'click .applink-addMusic': function(){

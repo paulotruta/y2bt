@@ -89,6 +89,11 @@ Template.private.events({
 		//Session.set('hidePlayer', false);
 		var player = document.getElementsByTagName("audio")[0];
 		player.pause();
+	},
+	'click .applink-queueMusic': function(){
+		// Put this music in the queue...
+		queueCollection.insert(this);
+		Materialize.toast('Music added to the queue!', 4000);
 	}
 });
 

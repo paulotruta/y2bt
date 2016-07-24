@@ -1,0 +1,31 @@
+<template name="queue">
+	<!-- Modal Structure -->
+	<div id="queueList" class="modal bottom-sheet">
+		<div class="modal-content">
+		<h4>Playing next...</h4>
+			{{#if hasMusic}}
+			<ul class="collection">
+				{{#each queueList}}
+				<li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item avatar {{#if isPlaying location}}applink-pauseMusicQueue active{{else}}applink-playMusicQueue{{/if}}" data-src="{{location}}">
+					<img src="{{thumbnail}}" alt="" class="circle">
+					<span class="title">{{title}}</span>
+					<p>{{{artist}}}<br>
+						{{readableTime length}}
+					</p>
+					{{#if isPlaying location}}<a href="#!" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="#!" class="secondary-content" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>
+				</li>
+				{{/each}}
+			</ul>
+			{{else}}
+			<div class="center">
+				<i class="large material-icons" style="margin-top:25px;">library_music</i>
+				<p style="margin-top: 25px;">You didn't add any music yet! The songs you add to the queue will be available here and played immediatelly after the current playing song.</p>
+			</div>
+			{{/if}}
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			<div class="waves-effect waves-red btn-flat applink-clearQueue">Clear Queue</div>
+		</div>
+	</div>
+</template>

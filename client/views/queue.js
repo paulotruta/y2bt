@@ -1,4 +1,16 @@
-Template.playlist.helpers({
+Template.queue.helpers({
+	'hasMusic': function(){
+		if(queueCollection.find().count() > 0){
+			return true;
+		}
+		else return false;
+	},
+	'musicCount': function(){
+		return queueCollection.find().count();
+	},
+	'queueList': function(){
+		return queueCollection.find().fetch();
+	},
 	'readableTime': function(seconds){
 		var date = new Date(null);
 		date.setSeconds(seconds);
@@ -29,8 +41,8 @@ Template.playlist.helpers({
 	}
 });
 
-Template.playlist.events({
-	'click .applink-playMusic': function(e){
+Template.queue.events({
+	'click .applink-playMusicQueue': function(e){
 
 		Session.set('musicUrl', this.location);
 		Session.set('musicTitle', this.title);
@@ -46,30 +58,15 @@ Template.playlist.events({
 
 		Session.set('hidePlayer', false);
 		Session.set('isPlaying', true);
-
-		// Set the next continuous play songs
-		var selector = '.' + this._id;
-		var next_tracks = $(selector).nextAll().map(function(){
-			var track_location = $(this).attr('data-src');
-			//console.log(track_location);
-			return track_location;
-		});
-		
-
 		// Increment play count
 		Meteor.call('incrementPlayCount', this._id);
 
-		Session.set('next_tracklist', next_tracks.get());
+		// Remove from queue...
+		queueCollection.remove(this._id);
 
-	},
-	'click .applink-pauseMusic': function(){
-		Session.set('isPlaying', false);
-		//Session.set('hidePlayer', false);
-		var player = document.getElementsByTagName("audio")[0];
-		player.pause();
 	}
 });
 
-Template.playlist.rendered = function () {
-	$('.tooltipped').tooltip({delay: 50});
+Template.queue.rendered = function () {
+
 };
