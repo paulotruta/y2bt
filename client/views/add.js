@@ -160,7 +160,7 @@ Template.add.events({
 	},
 	'click .applink-addMusic': function(){
 
-		var track_exists = Meteor.music.findOne({location: Session.get('musicUrl_tmp')});
+		var track_exists = music.findOne({location: Session.get('musicUrl_tmp')});
 
 		var current_preview_time = player.getCurrentTime();
 

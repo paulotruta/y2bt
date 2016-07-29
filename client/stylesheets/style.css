@@ -87,6 +87,10 @@ table {
   margin-right:10px;
 }
 
+h4{
+  font-size: 2rem;
+}
+
 #at-nav-button {
   color: white;
   background-color: #31354e;
@@ -115,4 +119,11 @@ table {
 
 .collection .collection-item.avatar .secondary-content{
   top: 40px;
+}
+
+.parallax-container {
+  height: 200px;
+ /*  width: 117%;
+  z-index: 998;
+  margin-left: -37px; */
 }

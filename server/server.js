@@ -63,7 +63,7 @@ Meteor.methods({
 	},
 	'insertMusic':function(music_details){
 
-		Meteor.music.insert(music_details);
+		music.insert(music_details);
 		console.log(music_details);
 		return true;
 
@@ -94,7 +94,60 @@ Meteor.methods({
     return future.wait()
   },
   'incrementPlayCount': function(musicId) {
-    Meteor.music.update({_id: musicId}, { $inc: {plays: 1}});
+    music.update({_id: musicId}, { $inc: {plays: 1}});
     return true;
+  },
+  'createPlaylist': function(playlistObject, first_track){
+    
+    var new_playlist_id = playlists.insert(playlistObject);
+
+    console.log('Playlist ' + playlistObject.name + ' created.');
+
+    first_track.playlist = new_playlist_id;
+
+    first_track.trackId = first_track._id;
+
+    delete first_track._id;
+
+    playlistTracks.insert(first_track);
+
+    console.log('First track information: \n' + first_track);
+
+    return true;
+
+  },
+  'addToPlaylist': function(playlist_id, track){
+
+    var destinyPlaylist = playlists.find({_id: playlist_id});
+
+    if(destinyPlaylist != null){
+      track.playlist = playlist_id;
+      if(track.trackId == null){
+        // Track comes from main music collection... assingments must be done...
+        track.trackId = track._id;
+
+      }
+      else{
+        // No assignments need to be done, track is already coming from a playlist!
+        console.log("Adding track to playlist provenient from the playlistTracks collection.");
+      }
+      
+      delete track._id;
+
+      console.log("Track Id: " + track.trackId);
+
+      if(playlistTracks.find({trackId: track.trackId}).count() == 0){
+        playlistTracks.insert(track);
+        return true;
+      }
+      else{
+        console.log("Track is already in the playlist");
+      }
+    }
+    else{
+      console.log("Unable to insert track into playlist due to invalid ID provided.");
+      return false;
+    }
+
   }
 });

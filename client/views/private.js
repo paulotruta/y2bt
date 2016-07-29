@@ -1,15 +1,15 @@
 Template.private.helpers({
 	'hasMusic': function(){
-		if(Meteor.music.find().count() > 0){
+		if(music.find().count() > 0){
 			return true;
 		}
 		else return false;
 	},
 	'musicCount': function(){
-		return Meteor.music.find().count();
+		return music.find().count();
 	},
 	'musicList': function(){
-		return Meteor.music.find({}, {sort: {createdAt: -1}}).fetch();
+		return music.find({}, {sort: {createdAt: -1}}).fetch();
 	},
 	'readableTime': function(seconds){
 		var date = new Date(null);

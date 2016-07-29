@@ -63,7 +63,7 @@ Template.footer.events({
   		//$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
 		$('#musicPlayer').trigger('load', next_track);
 		$('#musicPlayer').trigger('play');
-		var next_music_info = Meteor.music.findOne({location: next_track});
+		var next_music_info = music.findOne({location: next_track});
 		console.log(next_music_info);
 		Meteor.call('incrementPlayCount', next_music_info._id);
 		Session.set('musicTitle', next_music_info.title);
@@ -104,7 +104,7 @@ Template.footer.events({
 		$('#musicPlayer').trigger('load', next_track);
   		//$('#musicPlayerWrapper').html('<audio src="'+next_track+'" preload="auto" autoplay="autoplay" class="musicPlayer" id="musicPlayer"></audio>');
 		$('#musicPlayer').trigger('play');
-		var next_music_info = Meteor.music.findOne({location: next_track});
+		var next_music_info = music.findOne({location: next_track});
 		console.log(next_music_info);
 		Session.set('musicTitle', next_music_info.title);
 		Session.set('playerTitle', next_music_info.artist + " - " + next_music_info.title);

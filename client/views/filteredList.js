@@ -1,19 +1,4 @@
-Template.playlist.helpers({
-	hasMusic: function(){
-        if(playlistTracks.find({playlist: this._id}, {sort: {plays: -1}}).count() > 0){
-            return true;
-        }
-        else return false;
-    },
-    musicCount: function(){
-        return playlistTracks.find({playlist: this._id}, {sort: {plays: -1}}).count();
-    },
-    musicList: function(){
-        return playlistTracks.find({playlist: this._id}, {sort: {plays: -1}}).fetch();
-    },
-    playlistMeta: function(){
-        return playlists.find({_id: this._id}).fetch()[0];
-    },
+Template.filteredList.helpers({
 	'readableTime': function(seconds){
 		var date = new Date(null);
 		date.setSeconds(seconds);
@@ -66,7 +51,7 @@ Template.playlist.helpers({
 
 });
 
-Template.playlist.events({
+Template.filteredList.events({
 	'click .applink-playMusic': function(e){
 
 		Session.set('musicUrl', this.location);
@@ -121,15 +106,15 @@ Template.playlist.events({
 		Session.set('toPlaylistArtist', this.artist);
 		Session.set('toPlaylistThumbnail', this.thumbnail);
 		Session.set('toPlaylistLength', this.length);
-		Session.set('toPlaylistTrackId', this.trackId);
+		Session.set('toPlaylistTrackId', this._id);
 
   		$('#modal1').openModal();
 	},
 	'click .applink-confirmPlaylist': function(){
 
-		Meteor.call('addToPlaylist', this._id, music.findOne({_id: Session.get('toPlaylistTrackId')}), function(err, result){
+		var result = Meteor.call('addToPlaylist', this._id, music.findOne({_id: Session.get('toPlaylistTrackId')}), function(err, result){
 			if(result){
-			Materialize.toast('Track added to playlist!', 4000);
+				Materialize.toast('Track added to playlist!', 4000);
 			}
 			else{
 				Materialize.toast('Track is already on the playlist!', 4000);
@@ -137,7 +122,6 @@ Template.playlist.events({
 		});
 
 		$('#modal1').closeModal();
-		
 
 	},
 	'click .applink-createPlaylist': function(){
@@ -174,7 +158,7 @@ Template.playlist.events({
 	}
 });
 
-Template.playlist.rendered = function () {
+Template.filteredList.rendered = function () {
 	$('.parallax').parallax();
 	$('.tooltipped').tooltip({delay: 50});
 };

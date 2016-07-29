@@ -1,0 +1,43 @@
+<template name="playlists">
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="imgs/bg-playlists.jpg"></div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h4 class="header">Playlists</h4>
+      <p><a href="#">{{playlistCount}} available ({{ownPlaylistCount}} yours)</a></p>
+      <p class="grey-text text-darken-3 lighten-3">Playlists can be created from anywhere and allow you to save and share your favorite tracks.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    {{#if hasPlaylists}}
+        <div class="row">
+          {{#each playlistList}}
+            <div class="col s12 m4 l3">
+              <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="{{cover}}" style="height: 200px;">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{name}}<i class="material-icons right">more_vert</i></span>
+                  <p><a href="#">x tracks</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">{{name}}<i class="material-icons right">close</i></span>
+                  <p>{{description}}</p>
+                  <p class="applink-openPlaylist cursor-pointer" style="color: #039be5 !important;">Open Playlist</p>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+    {{else}}
+      <div class="center">
+        <i class="large material-icons" style="margin-top:25px;">library_music</i>
+        <p style="margin-top: 25px;">There is no playlists available at the moment!</p>
+      </div>
+    {{/if}}
+  </div>
+</template>
