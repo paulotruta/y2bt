@@ -13,6 +13,15 @@ Template.playlists.helpers({
 	},
 	'playlistList': function(){
 		return playlists.find({}, {sort: {createdAt: -1}}).fetch();
+	},
+	'isOwnPlaylist': function(){
+		if(this.userId == Meteor.userId()){
+			return true;
+		}
+		else return false;
+	},
+	'playlistMusicCount': function(){
+		return playlistTracks.find({playlist: this._id}).count();
 	}
 });
 

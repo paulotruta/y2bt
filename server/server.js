@@ -136,7 +136,7 @@ Meteor.methods({
 
       console.log("Track Id: " + track.trackId);
 
-      if(playlistTracks.find({trackId: track.trackId}).count() == 0){
+      if(playlistTracks.find({trackId: track.trackId, playlist: playlist_id}).count() == 0){
         playlistTracks.insert(track);
         return true;
       }
