@@ -13,6 +13,14 @@ Template.footer.helpers({
 	},
 	'music_url': function(){
 		return Session.get('musicUrl');
+	},
+	'footerClasses': function(){
+		if(is.mobile()){
+			return 'page-footer';
+		}
+
+		return 'alternative-page-footer';
+
 	}
 });
 
@@ -113,7 +121,6 @@ Template.footer.events({
 });
 
 Template.footer.rendered = function () {
-	
 	// audiojs.events.ready(function() {
  //    	var as = audiojs.createAll({
 

@@ -69,7 +69,8 @@ footer {
 }
 
 nav {
-  background-color: #31354e;
+  /*background-color: #31354e;*/
+  background-color: #333333;
 }
 
 footer.page-footer {
@@ -80,6 +81,18 @@ footer.page-footer {
   height: 55px;
   background-color: black;
   z-index: 1;
+  padding-top: 15px;
+}
+
+footer.alternative-page-footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 55px;
+  background-color: #2d2d2d;
+  z-index: 1;
+  padding-top: 15px;
 }
 
 table {
@@ -126,4 +139,28 @@ h4{
  /*  width: 117%;
   z-index: 998;
   margin-left: -37px; */
+}
+
+#nav-mobile {
+  background: #333333 url(/imgs/bg_menu.jpg) repeat repeat;
+}
+
+.side-nav.fixed a {
+  color: #aaa;
+}
+
+.side-nav a {
+  color: #aaa;
+}
+
+.side-nav.active a{
+  color: #333;
+}
+
+.side-nav li.active a{
+  color: #333;
+}
+
+.side-nav li:hover a{
+  color: #333;
 }
