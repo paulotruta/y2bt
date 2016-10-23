@@ -164,3 +164,45 @@ h4{
 .side-nav li:hover a{
   color: #333;
 }
+
+.btn-playlistFilter{
+  background-color: #2d2d2d;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-playlistFilter:hover{
+  background-color: black;
+}
+
+.trackList{
+  width: 99%;
+}
+
+.collection{
+  border-right-color: transparent;
+}
+
+#queueList{
+  min-height: 370px;
+}
+
+.dropdown-content{
+  background-color: rgba(45, 45, 45, 0.95);
+}
+
+.dropdown-content > li:hover {
+  background-color: #31354e;
+}
+
+.dropdown-content > li > a {
+  color: white;
+}
+
+.trackOptionsIcons {
+  display: none;
+}
+

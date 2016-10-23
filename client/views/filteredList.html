@@ -11,8 +11,28 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="trackList">
     {{#if hasMusic}}
+      <div class="row center-align">
+        <div class="dropdown-button-filter btn btn-flat btn-playlistFilter waves-effect waves-light filterBtn" data-activates="dropdownFilter" data-beloworigin="true" style="width: 95%">{{currentFilter}}</div>
+        <!-- Dropdown Structure -->
+        <ul id="dropdownFilter" class="dropdown-content">
+          <li><a href="#!" class="applink-chooseFilter" data-trackfilter="Tracks from everyone">{{filterLabel 'Tracks from everyone'}}</a></li>
+          <li><a href="#!" class="applink-chooseFilter" data-trackfilter="Tracks added by me">{{filterLabel 'Tracks added by me'}}</a></li>
+          <li class="divider"></li>
+          <li><a href="#!" class="applink-chooseFilter" data-trackfilter="Recommended">{{filterLabel 'Recommended'}}</a></li>
+        </ul>
+
+        <div class="dropdown-button-order btn btn-playlistFilter waves-effect waves-light orderBtn" data-beloworigin="true" data-activates="dropdownOrder" style="width: 95%">{{currentOrder}}</div>
+        <!-- Dropdown Structure -->
+        <ul id="dropdownOrder" class="dropdown-content">
+          <li><a href="#!" class="applink-chooseOrder" data-trackorder="Added first">{{orderLabel 'Added first'}}</a></li>
+          <li><a href="#!" class="applink-chooseOrder" data-trackorder="Added last">{{orderLabel 'Added last'}}</a></li>
+          <li class="divider"></li>
+          <li><a href="#!" class="applink-chooseOrder" data-trackorder="Most played">{{orderLabel 'Most played'}}</a></li>
+          <li><a href="#!" class="applink-chooseOrder" data-trackorder="Least played">{{orderLabel 'Least played'}}</a></li>
+        </ul>
+      </div>
       <ul class="collection">
         {{#each musicList}}
           <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item {{_id}} avatar {{#if isPlaying location}} active{{/if}}" data-src="{{location}}">
@@ -24,10 +44,31 @@
                  {{readableTime length}}
               </p>
             </div>
-            {{#if isPlaying location}}<div class="secondary-content"><i class="material-icons cursor-pointer applink-addToPlaylist" style="color: white; margin-right: 25px;">playlist_add</i><i class="material-icons applink-pauseMusic cursor-pointer" style="color: white;">pause</i></div><a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 115px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>{{else}}<div class="secondary-content"><i class="material-icons cursor-pointer applink-addToPlaylist" style="color: #31354E; margin-right: 25px;">playlist_add</i><i class="material-icons applink-queueMusic cursor-pointer" style="color: #31354E;">queue</i></div>{{/if}}
+          
+            <div id="optionsTrigger-{{_id}}" class="secondary-content applink-trackOptionsTrigger" data-id={{_id}}>
+              <i class="material-icons" style="color: {{#if isPlaying location}}white{{else}}#2d2d2d{{/if}}; cursor: pointer;">more_vert</i>
+            </div> 
+            <div id="options-{{_id}}" class="secondary-content trackOptionsIcons">
+              {{#if isPlaying location}}
+              
+                <i class="material-icons cursor-pointer applink-addToPlaylist" style="color: white; margin-right: 15px;">playlist_add</i>
+                <i class="material-icons applink-pauseMusic cursor-pointer" style="color: white; margin-right: 15px;">pause</i>
+                <a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 115px;">
+                  <i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i>
+                </a>
+              {{else}}
+                <i class="material-icons cursor-pointer applink-addToPlaylist" style="color: #31354E; margin-right: 25px;">playlist_add</i>
+                <i class="material-icons applink-queueMusic cursor-pointer" style="color: #31354E;">queue</i>
+              {{/if}}
+            </div>
           </li>
         {{/each}}
       </ul>
+      {{#if showLoadMore}}
+        <div class="row center-align">
+          <div class="btn btn-flat btn-playlistFilter waves-effect waves-light filterBtn applink-loadMoreTracks" style="width: 95%">Load more tracks</div>
+        </div>
+      {{/if}}
     {{else}}
       <div class="center">
         <i class="large material-icons" style="margin-top:25px;">library_music</i>

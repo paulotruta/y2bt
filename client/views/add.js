@@ -187,7 +187,9 @@ Template.add.events({
 			Session.set('isPlaying', true);
 			Session.set('hidePlayer', false);
 
-			Router.go('/masterList');
+			Session.set('trackFilter', 'Tracks from everyone');
+			Session.set('trackOrder', 'Added First');
+			Router.go('/tracks');
 		}
 		else{
 			Session.set('loadingMusic', true);
@@ -199,8 +201,6 @@ Template.add.events({
 			var title = $('#newMusicTitle').val();
 
 			Meteor.call('convertVideo', videoFileName, musicFileName, artist, title, function(err, result){
-
-				
 
 				Session.set('musicUrl', Session.get('musicUrl_tmp'));
 				Session.set('musicTitle', artist + " - " + title);
@@ -246,7 +246,10 @@ Template.add.events({
 
 				$('#musicPlayer').trigger('play');
 
-				Router.go('/personalList');
+				Session.set('trackFilter', 'Tracks added by me');
+				Session.set('trackOrder', 'Added first');
+
+				Router.go('/tracks');
 
 			});
 

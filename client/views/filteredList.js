@@ -47,8 +47,38 @@ Template.filteredList.helpers({
 	},
 	'playlistCount': function(){
 		return playlists.find({userId: Meteor.userId()}).count();
-	}
+	},
+	'currentOrder': function(){
+		if (typeof(Session.get('trackOrder')) == 'undefined'){
+			return 'Most played';
+		}
+		return Session.get('trackOrder');
+	},
+	'currentFilter': function(){
+		if(typeof(Session.get('trackFilter')) == 'undefined'){
+			return 'Tracks from everyone';
+		}
 
+		return Session.get('trackFilter');
+	},
+	'filterLabel': function(label_name){
+		var label = label_name;
+		var current_label = Session.get('trackFilter');
+		if(label_name == Session.get('trackFilter')){
+			label += ' ✓';
+		}
+
+		return label;
+	},
+	'orderLabel': function(label_name){
+		var current_label = Session.get('trackOrder');
+		var label = label_name;
+		if(label_name == Session.get('trackOrder')){
+			label += ' ✓';
+		}
+
+		return label;
+	},
 });
 
 Template.filteredList.events({
@@ -155,10 +185,89 @@ Template.filteredList.events({
 	},
 	'click applink-closeCreatePlaylist': function(){
 		$('#modal1').closeModal();
+	},
+	'click .applink-chooseFilter': function(e){
+		Session.set('collectionLimit', 40);
+		console.log("Changed track filter to " + e.currentTarget.dataset.trackfilter);
+		console.log(e.currentTarget.dataset);
+		Session.set('trackFilter', e.currentTarget.dataset.trackfilter);
+		//document.location.reload(true);
+		Router.rerun;
+	},
+	'click .applink-chooseOrder': function(e){
+		Session.set('collectionLimit', 40);
+		console.log("Changed track order to " + e.currentTarget.dataset.trackorder);
+		console.log(e.currentTarget.dataset);
+		Session.set('trackOrder', e.currentTarget.dataset.trackorder);
+        //document.location.reload(true);
+        Router.rerun;
+	},
+	'click .applink-loadMoreTracks': function(){
+		console.log("Loading 80 more tracks...");
+		var current_collection_limit = Session.get('collectionLimit');
+		if(typeof(current_collection_limit) == 'undefined'){
+			current_collection_limit = 40;
+		}
+		else{
+			current_collection_limit += 40;
+		}
+
+		Session.set('collectionLimit', current_collection_limit);
+
+		console.log("Current collection visible limit: " + current_collection_limit);
+		Router.rerun;
+	},
+	'click .applink-trackOptionsTrigger': function(e){
+
+		console.log("Triggering options for app");
+
+		var track_id = e.currentTarget.dataset.id;
+		var options_selector = '#options-' + track_id;
+		console.log(options_selector);
+		var trigger_selector = '#optionsTrigger-' + track_id;
+		console.log(trigger_selector)
+
+
+		$(trigger_selector).fadeOut('fast');
+		$(options_selector).fadeIn();
+
+		console.log($(trigger_selector));
+
+		window.setTimeout(function() {
+			$(options_selector).fadeOut('fast');
+			$(trigger_selector).fadeIn();
+		}, 5000);
+
 	}
+
 });
 
 Template.filteredList.rendered = function () {
+	if(typeof(Session.get('collectionLimit')) == 'undefined'){
+		console.log('Setting default collection visible limit of 40 tracks');
+	}
+	
 	$('.parallax').parallax();
 	$('.tooltipped').tooltip({delay: 50});
+	window.setTimeout(function() {
+		console.log("Activating filtering dropdowns");
+		$('.orderBtn').dropdown({
+			inDuration: 300,
+			outDuration: 225,
+			constrain_width: true, // Does not change width of dropdown to that of the activator
+			hover: false, // Activate on hover
+			gutter: 0, // Spacing from edge
+			belowOrigin: true, // Displays dropdown below the button
+			alignment: 'center' // Displays dropdown with edge aligned to the left of button
+		});
+		$('.filterBtn').dropdown({
+			inDuration: 300,
+			outDuration: 225,
+			constrain_width: true, // Does not change width of dropdown to that of the activator
+			hover: false, // Activate on hover
+			gutter: 0, // Spacing from edge
+			belowOrigin: true, // Displays dropdown below the button
+			alignment: 'center' // Displays dropdown with edge aligned to the left of button
+		});
+	}, 3000);
 };
