@@ -32,7 +32,7 @@ Meteor.methods({
 
 			ytdl.downloadFromInfo(result, { filter: function(format) { return format.container === 'mp4'; } }).pipe(stream);
 
-			future.return(result)
+			future.return(result);
 		});
 
 		return future.wait();
@@ -54,7 +54,7 @@ Meteor.methods({
     	converter.on('end', function() {
         	console.log('Processing finished !');
         	future.return(true);
-    	})
+    	});
 
       	converter.writeToStream(stream, { end: true });
 
@@ -91,7 +91,7 @@ Meteor.methods({
     	}
     });
 
-    return future.wait()
+    return future.wait();
   },
   'incrementPlayCount': function(musicId) {
     music.update({_id: musicId}, { $inc: {plays: 1}});
@@ -120,9 +120,9 @@ Meteor.methods({
 
     var destinyPlaylist = playlists.find({_id: playlist_id});
 
-    if(destinyPlaylist != null){
+    if(destinyPlaylist !== null){
       track.playlist = playlist_id;
-      if(track.trackId == null){
+      if(track.trackId === null){
         // Track comes from main music collection... assingments must be done...
         track.trackId = track._id;
 
@@ -136,7 +136,7 @@ Meteor.methods({
 
       console.log("Track Id: " + track.trackId);
 
-      if(playlistTracks.find({trackId: track.trackId, playlist: playlist_id}).count() == 0){
+      if(playlistTracks.find({trackId: track.trackId, playlist: playlist_id}).count() === 0){
         playlistTracks.insert(track);
         return true;
       }

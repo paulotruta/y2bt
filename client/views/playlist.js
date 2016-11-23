@@ -158,7 +158,7 @@ Template.playlist.events({
 				'description': newPlaylistDescription,
 				'cover': 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-410665.jpg',
 				'userId': Meteor.userId()
-			}
+			};
 
 			Meteor.call('createPlaylist', playlistObject, music.findOne({_id: Session.get('toPlaylistTrackId')}));
 

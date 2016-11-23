@@ -172,7 +172,7 @@ Template.filteredList.events({
 				'description': newPlaylistDescription,
 				'cover': 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-410665.jpg',
 				'userId': Meteor.userId()
-			}
+			};
 
 			Meteor.call('createPlaylist', playlistObject, music.findOne({_id: Session.get('toPlaylistTrackId')}));
 
@@ -192,7 +192,7 @@ Template.filteredList.events({
 		console.log(e.currentTarget.dataset);
 		Session.set('trackFilter', e.currentTarget.dataset.trackfilter);
 		//document.location.reload(true);
-		Router.rerun;
+		//Router.rerun;
 	},
 	'click .applink-chooseOrder': function(e){
 		Session.set('collectionLimit', 40);
@@ -200,7 +200,7 @@ Template.filteredList.events({
 		console.log(e.currentTarget.dataset);
 		Session.set('trackOrder', e.currentTarget.dataset.trackorder);
         //document.location.reload(true);
-        Router.rerun;
+        //Router.rerun;
 	},
 	'click .applink-loadMoreTracks': function(){
 		console.log("Loading 80 more tracks...");
@@ -215,7 +215,7 @@ Template.filteredList.events({
 		Session.set('collectionLimit', current_collection_limit);
 
 		console.log("Current collection visible limit: " + current_collection_limit);
-		Router.rerun;
+		//Router.rerun;
 	},
 	'click .applink-trackOptionsTrigger': function(e){
 
@@ -225,7 +225,7 @@ Template.filteredList.events({
 		var options_selector = '#options-' + track_id;
 		console.log(options_selector);
 		var trigger_selector = '#optionsTrigger-' + track_id;
-		console.log(trigger_selector)
+		console.log(trigger_selector);
 
 
 		$(trigger_selector).fadeOut('fast');

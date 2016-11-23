@@ -1,11 +1,13 @@
 function isUrl(s) {
-   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
    return regexp.test(s);
 }
 
 Template.add.helpers({
-	'musicTitle': function(separated = false){
-			
+	'musicTitle': function(separated){
+		if(separated === null){
+			separated = false;
+		}	
 		var complete_title = Session.get('musicTitle_tmp');
 
 		if(separated){
@@ -271,7 +273,7 @@ Template.add.rendered = function () {
 	Session.set('loadingMusic', false);
 	Session.set('addingMusic', false);
 
-	if(Session.get('fromSearch') == true){
+	if(Session.get('fromSearch') === true){
 
 		console.log("Getting video from search.");
 
@@ -283,7 +285,7 @@ Template.add.rendered = function () {
 
 		var videoUrl = Session.get('fromSearchUrl');
 
-		console.log('Video Url: ' + videoUrl)
+		console.log('Video Url: ' + videoUrl);
 
 		Meteor.call('getVideoInfo', videoUrl, function(err, result) {
 
