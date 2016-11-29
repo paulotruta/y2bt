@@ -149,5 +149,24 @@ Meteor.methods({
       return false;
     }
 
+  },
+  'editTrack': function(track_details){
+    // Check if the given user id is able to edit this track.
+
+    var track_to_edit = music.findOne({_id: track_details._id});
+
+    console.log("Editing track");
+    console.log(track_to_edit);
+
+    console.log(track_details);
+
+    // if(track_to_edit.userId == track_details.userId){
+      console.log("Editing allowed");
+      music.update(track_details._id, {$set: {title: track_details.title, artist: track_details.artist}});
+    // }
+  },
+  'deleteTrack': function(track_id){
+    music.remove(track_id);
+    // Music should also be removed from files...
   }
 });

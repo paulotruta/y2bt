@@ -49,17 +49,22 @@
               <i class="material-icons" style="color: {{#if isPlaying location}}white{{else}}#2d2d2d{{/if}}; cursor: pointer;">more_vert</i>
             </div> 
             <div id="options-{{_id}}" class="secondary-content trackOptionsIcons">
-              {{#if isPlaying location}}
               
-                <i class="material-icons cursor-pointer applink-addToPlaylist" style="color: white; margin-right: 15px;">playlist_add</i>
-                <i class="material-icons applink-pauseMusic cursor-pointer" style="color: white; margin-right: 15px;">pause</i>
-                <a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 115px;">
-                  <i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i>
-                </a>
+              {{#if isPlaying location}}                
+                <i class="material-icons applink-pauseMusic cursor-pointer tooltipped" data-position="bottom" data-delay="50" data-tooltip="Pause" style="margin-right: 15px; color: white;">pause</i>
               {{else}}
-                <i class="material-icons cursor-pointer applink-addToPlaylist" style="color: #31354E; margin-right: 25px;">playlist_add</i>
-                <i class="material-icons applink-queueMusic cursor-pointer" style="color: #31354E;">queue</i>
+                <i class="material-icons applink-queueMusic cursor-pointer tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to Queue" style="margin-right: 15px;">queue</i>
               {{/if}}
+
+              {{#if canEdit _id}}
+                <i class="material-icons applink-editMusic cursor-pointer tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" style="margin-right: 15px;">mode_edit</i>
+              {{/if}}
+
+              <i class="material-icons cursor-pointer applink-addToPlaylist tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to Playlist" style="margin-right: 15px;">playlist_add</i>
+              <a href="{{location}}" download="{{artist}} - {{title}}.mp3" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download" style="right: 115px;">
+                  <i class="material-icons applink-downloadMusic" style="">cloud_download</i>
+              </a>
+
             </div>
           </li>
         {{/each}}
@@ -129,6 +134,34 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat applink-closeCreatePlaylist">Cancel</a>
         <a href="#!" class="waves-effect waves-green btn-flat applink-createPlaylist">Create new Playlist</a>
       {{/if}}
+    </div>
+  </div>
+
+  <div id="modalEditMusic" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Edit track metadata:</h4>
+      <div class="row">
+        <div class="input-field col s12">
+          <input value="{{toEditArtist}}" id="editModalTrackArtist" type="text" class="validate">
+          <label class="active" for="editModalTrackArtist">Artist</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input value="{{toEditTitle}}" id="editModalTrackTitle" type="text" class="validate">
+          <label class="active" for="editModalTrackTitle">Title</label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 35px;">
+        <div class="input-field col s12">
+          <div class="btn red waves-effect waves-light applink-deleteTrack" style="width: 100%; height: 40px;">Delete Track <i class="material-icons">delete_sweep</i></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!--  -->
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn btn-flat applink-confirmEditMusic">Confirm new metadata</a>
+      <a href="#!" class="waves-effect waves-light btn btn-flat applink-modalEditMusicBack">Cancel</a>
     </div>
   </div>
 

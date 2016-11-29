@@ -79,6 +79,15 @@ Template.filteredList.helpers({
 
 		return label;
 	},
+	'canEdit': function(track_id){
+		return true;
+	},
+	'toEditArtist': function(){
+		return Session.get('toEditArtist');
+	},
+	'toEditTitle': function(){
+		return Session.get('toEditTitle');
+	},
 });
 
 Template.filteredList.events({
@@ -238,8 +247,54 @@ Template.filteredList.events({
 			$(trigger_selector).fadeIn();
 		}, 5000);
 
-	}
+	},
+	'click .applink-editMusic': function(){
 
+		var old_title = this.title;
+		if(typeof(old_title) == 'undefined'){
+			old_title = "";
+		}
+
+		var old_artist = this.artist;
+		if(typeof(old_artist) == 'undefined'){
+			old_artist = "";
+		}
+
+		Session.set('toEditTitle', old_title);
+		Session.set('toEditArtist', old_artist);
+		Session.set('toEditThumbnail', this.thumbnail);
+		Session.set('toEditTrackId', this._id);
+
+  		$('#modalEditMusic').openModal();
+	},
+	'click .applink-modalEditMusicBack': function(){
+		$('#modalEditMusic').closeModal();
+	},
+	'click .applink-confirmEditMusic': function(){
+		var newTrackArtist = $('#editModalTrackArtist').val();
+		var newTrackTitle = $('#editModalTrackTitle').val();
+
+		console.log('Track new name: ' + newTrackArtist);
+		console.log('Track new title: ' + newTrackTitle);
+
+		var trackNewDetails = {
+			'artist': newTrackArtist,
+			'title': newTrackTitle,
+			'_id': Session.get('toEditTrackId'),
+			'userId': Meteor.userId(),
+		}
+
+		Meteor.call('editTrack', trackNewDetails);
+
+		Session.set('playerTitle', trackNewDetails.artist + ' - ' + trackNewDetails.title);
+
+		Materialize.toast('Track updated!', 4000);
+	},
+	'click .applink-deleteTrack': function(){
+		Meteor.call('deleteTrack', Session.get('toEditTrackId'));
+		$('#modalEditMusic').closeModal();
+		Materialize.toast('Track deleted!', 4000);
+	},
 });
 
 Template.filteredList.rendered = function () {

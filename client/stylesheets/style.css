@@ -206,3 +206,18 @@ h4{
   display: none;
 }
 
+.collection-item > .trackOptionsIcons > i {
+  color: #31354e;
+}
+
+.collection-item > .trackOptionsIcons > a {
+  color: #31354e;
+}
+
+#playingTrack > .trackOptionsIcons > i {
+  color: white;
+}
+
+#playingTrack > .trackOptionsIcons > a {
+  color: white;
+}
