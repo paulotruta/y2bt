@@ -221,3 +221,11 @@ h4{
 #playingTrack > .trackOptionsIcons > a {
   color: white;
 }
+
+.gradient1 {
+ background: linear-gradient(90deg, rgba(111,17,1,1), transparent);
+}
+
+.gradient2 {
+ background: linear-gradient(90deg, black, transparent);
+}
