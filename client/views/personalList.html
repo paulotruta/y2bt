@@ -1,0 +1,25 @@
+<template name="personalList">
+  <div class="container">
+    <h4 class="center">Personal List</h4>
+
+    {{#if hasMusic}}
+      <ul class="collection">
+        {{#each musicList}}
+          <li id="{{#if isPlaying location}}playingTrack{{/if}}" class="collection-item avatar {{#if isPlaying location}}applink-pauseMusicPersonal active{{else}}applink-playMusicPersonal{{/if}}" data-src="{{location}}">
+            <img src="{{thumbnail}}" alt="" class="circle">
+            <span class="title">{{title}}</span>
+            <p>{{{artist}}}<br>
+               {{readableTime length}}
+            </p>
+            {{#if isPlaying location}}<a href="#!" class="secondary-content"><i class="material-icons applink-pauseMusic" style="color: white;">pause</i></a>{{/if}}<a href="#!" class="secondary-content" style="right: 60px;"><i class="material-icons applink-downloadMusic" style="color: white;">cloud_download</i></a>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class="center">
+        <i class="large material-icons" style="margin-top:25px;">library_music</i>
+        <p style="margin-top: 25px;">You didn't add any music yet! The songs you add to the cloud will be available here.</p>
+      </div>
+    {{/if}}
+  </div>
+</template>
